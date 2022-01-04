@@ -1,16 +1,13 @@
+require('dotenv').config();
+
 import { Client, GuildMember, Intents, Snowflake } from 'discord.js';
 import {
   joinVoiceChannel,
-  VoiceConnection,
   entersState,
   VoiceConnectionStatus,
-  AudioPlayerStatus,
-  AudioResource,
 } from '@discordjs/voice';
 import { Player } from './lib/Player';
 import { Track } from './lib/Track';
-
-const { token } = require('./config.json');
 
 const PlayerCommands = Object.freeze({
   Play: 'play',
@@ -213,4 +210,4 @@ client.on('interactionCreate', async (interaction) => {
   }
 });
 
-client.login(token);
+client.login(process.env.token);
