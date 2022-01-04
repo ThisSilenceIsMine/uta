@@ -1,3 +1,6 @@
 _*
 node_modules
 *.env
+*.env.ts
+dist
+config.json
