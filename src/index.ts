@@ -22,7 +22,7 @@ client.commands = new Collection();
 
 const commandFiles = fs
   .readdirSync(path.join(__dirname, './commands'))
-  .filter((file) => file.endsWith('.ts'));
+  .filter((file) => file.endsWith('.ts') || file.endsWith('.js'));
 
 for (const file of commandFiles) {
   const command = require(path.join(__dirname, `./commands/${file}`));
@@ -35,15 +35,22 @@ client.once('ready', async () => {
 });
 
 client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) return;
+  console.log('>interactionCreate');
+  if (!interaction.isCommand()) {
+    console.log('Not a command!');
+    return;
+  }
 
   const command = client.commands!.get(interaction.commandName);
 
-  if (!command) return;
-
+  if (!command) {
+    interaction.reply({ content: 'Command not found!', ephemeral: true });
+    return;
+  }
   try {
     await command.execute(interaction);
   } catch (error) {
+    console.log('>error occurred');
     console.error(error);
     await interaction.reply({
       content: 'Something went wrong',
