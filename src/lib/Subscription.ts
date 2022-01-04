@@ -12,7 +12,7 @@ import { Track } from './Track';
 const waitFor = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
-export class Player {
+export class MusicSubscription {
   readonly audioPlayer: AudioPlayer;
   readonly voiceConnection: VoiceConnection;
   queueLock = false;
